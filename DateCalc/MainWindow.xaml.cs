@@ -87,7 +87,7 @@ namespace DateCalc
                     {
                         DateSpan.Month--;
                         if (EndDate.Month == 1)
-                            DateSpan.Day = DateTime.DaysInMonth(EndDate.Year, 12) - StartDate.Day + EndDate.Day;
+                            DateSpan.Day = 31 - StartDate.Day + EndDate.Day;
                         else
                             DateSpan.Day = DateTime.DaysInMonth(EndDate.Year, (EndDate.Month - 1)) - StartDate.Day + EndDate.Day;
                     }
