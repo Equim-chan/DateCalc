@@ -42,17 +42,17 @@ namespace DateCalc
             dateSpanTextBox.TextChanged += (sender, e) => CaltByDays();
             GANSButton.Click += (sender, e) =>
             {
-                startDatePick.SelectedDate = DateTime.Parse("2009-10-22");
+                startDatePick.SelectedDate = new DateTime(2009, 10, 22);
                 CalcByDate();
             };
             _9Button.Click += (sender, e) =>
             {
-                startDatePick.SelectedDate = DateTime.Parse("2012-02-04");
+                startDatePick.SelectedDate = new DateTime(2012, 2, 4);
                 CalcByDate();
             };
             eqBirthButton.Click += (sender, e) =>
             {
-                startDatePick.SelectedDate = DateTime.Parse("1996-12-18");
+                startDatePick.SelectedDate = new DateTime(1996, 12, 18);
                 CalcByDate();
             };
             todayButton.Click += (sender, e) =>
