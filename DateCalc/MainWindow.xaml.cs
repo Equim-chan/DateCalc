@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,7 +39,7 @@ namespace DateCalc
             startDatePick.SelectedDate = DateTime.Today;
             startDatePick.SelectedDateChanged += (sender, e) => CalcByDate();
             endDatePick.SelectedDateChanged += (sender, e) => CalcByDate();
-            dateSpanTextBox.TextChanged += (sender, e) => CaltByDays();
+            dateSpanTextBox.TextChanged += (sender, e) => CalcByDays();
             GANSButton.Click += (sender, e) =>
             {
                 startDatePick.SelectedDate = new DateTime(2009, 10, 22);
@@ -106,7 +106,7 @@ namespace DateCalc
             }
         }
 
-        private void CaltByDays()
+        private void CalcByDays()
         {
             int DateSpan;
             if (int.TryParse(dateSpanTextBox.Text, out DateSpan))
