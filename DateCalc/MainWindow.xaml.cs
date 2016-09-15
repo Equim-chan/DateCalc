@@ -78,7 +78,6 @@ namespace DateCalc
                 try
                 {
                     if (EndDate < StartDate) Swap<DateTime>(ref EndDate, ref StartDate);
-
                     DateForCalc DateSpan = new DateForCalc();
                     DateSpan.Day = EndDate.Day - StartDate.Day;
                     DateSpan.Month = EndDate.Month - StartDate.Month;
