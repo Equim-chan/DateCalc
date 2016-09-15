@@ -108,11 +108,12 @@ namespace DateCalc
 
         private void CalcByDays()
         {
-            int DaySpan;
-            if (int.TryParse(dateSpanTextBox.Text, out DaySpan))
+            TimeSpan DaySpan;
+            if (TimeSpan.TryParse(dateSpanTextBox.Text, out DaySpan))
             {
                 DateTime StartDate = (DateTime)startDatePick.SelectedDate;
-                DateTime EndDate = StartDate + new TimeSpan(DaySpan, 0, 0, 0);
+                DateTime EndDate = StartDate + DaySpan;
+                //DateTime EndDate = StartDate + new TimeSpan(DaySpan, 0, 0, 0);    //之前将DaySpan定义为了int，然后调用了int.TryParse()
                 endDatePick.SelectedDate = EndDate;
             }
         }
