@@ -10,21 +10,71 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <!--
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF2F8891" Offset="0.004"/>
                 <GradientStop Color="#FFCAE295" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Canvas>
-            <Polygon Points="318, 24 550,24 550,97 468,97 468,61 318,61" 
+        -->
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF2F8891" Offset="0.004"/>
+                <GradientStop Color="#FFCAE295" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Canvas Opacity="0.6">
+            <Polygon x:Name="GroupPolygon" Points="318,24 550,24 550,97 468,97 468,61 318,61" 
        StrokeThickness="1" Stroke="White" />
+            <Grid x:Name="BackGroundGrid" Height="205" Canvas.Top="0" Width="586">
+                <Grid.Effect>
+                    <BlurEffect x:Name="BackgroundBlurEfffect" Radius="0"/>
+                </Grid.Effect>
+
+                <Grid.Background>
+                    <!--这个地方因为资源的BuildAction设置的问题，被各种Exception困扰了很长时间。现在明白了要设置成Resource-->
+                    <ImageBrush Stretch="UniformToFill" Opacity="0.6" ImageSource="res/BG.jpg"/>
+                </Grid.Background>
+                <TextBlock x:Name="AuthorsWords" HorizontalAlignment="Left" Height="163" Margin="65,32,0,10" TextWrapping="Wrap" VerticalAlignment="Center" Width="449" FontSize="20" FontStyle="Italic" TextAlignment="Right" Foreground="Black" Opacity="0"><Run Text="It's just no more than a boring story..."/><Run Text=" "/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run Text="Equim@CSU"/><Run Text=" "/><LineBreak/><Run Text="2016-09-16"/><Run Text=" "/></TextBlock>
+
+            </Grid>
         </Canvas>
         <DatePicker x:Name="startDatePick" HorizontalAlignment="Left" Height="31" Margin="161,27,0,0" VerticalAlignment="Top" Width="142" FontSize="18" FirstDayOfWeek="Sunday" Text="22"/>
-        <Label x:Name="label" Content="起始日期：" HorizontalAlignment="Left" Height="31" Margin="50,27,0,0" VerticalAlignment="Top" Width="106" FontSize="18" Background="Transparent"/>
+        <Label x:Name="label" Content="起始日期：" HorizontalAlignment="Left" Height="31" Margin="50,27,0,0" VerticalAlignment="Top" Width="106" FontSize="18" FontWeight="Bold">
+            <Label.Effect>
+                <DropShadowEffect/>
+            </Label.Effect>
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="Red" Offset="1"/>
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
         <DatePicker x:Name="endDatePick" HorizontalAlignment="Left" Height="31" Margin="161,63,0,0" VerticalAlignment="Top" Width="142" FontSize="18" FirstDayOfWeek="Sunday"/>
-        <Label x:Name="label_Copy" Content="终点日期：" HorizontalAlignment="Left" Height="31" Margin="50,63,0,0" VerticalAlignment="Top" Width="106" FontSize="18"/>
-        <Label x:Name="label2" Content="相距天数：" HorizontalAlignment="Left" Height="31" Margin="50,99,0,0" VerticalAlignment="Top" Width="106" FontSize="18"/>
+        <Label x:Name="label_Copy" Content="终点日期：" HorizontalAlignment="Left" Height="31" Margin="50,63,0,0" VerticalAlignment="Top" Width="106" FontSize="18" FontWeight="Bold">
+            <Label.Effect>
+                <DropShadowEffect/>
+            </Label.Effect>
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="Red" Offset="1"/>
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+        <Label x:Name="label2" Content="相距天数：" HorizontalAlignment="Left" Height="31" Margin="50,99,0,0" VerticalAlignment="Top" Width="106" FontSize="18" FontWeight="Bold">
+            <Label.Effect>
+                <DropShadowEffect/>
+            </Label.Effect>
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="#FFB9FF00" Offset="1"/>
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
         <TextBox x:Name="dateSpanTextBox" HorizontalAlignment="Left" Height="31" Margin="161,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontSize="18" Background="White" TextAlignment="Center"/>
         <Button x:Name="GANSButton" Content="GANS" HorizontalAlignment="Left" Height="31" Margin="397,28,0,0" VerticalAlignment="Top" Width="71" FontSize="18" Foreground="White" RenderTransformOrigin="0.493,0.774">
             <Button.Background>
@@ -34,7 +84,14 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="eqBirthButton" Content="Eq的生日" HorizontalAlignment="Left" Height="31" Margin="473,63,0,0" VerticalAlignment="Top" Width="71" FontSize="14"/>
+        <Button x:Name="eqBirthButton" Content="Eq的生日" HorizontalAlignment="Left" Height="31" Margin="473,63,0,0" VerticalAlignment="Top" Width="71" FontSize="14">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF7E7E7E" Offset="1"/>
+                    <GradientStop Color="White"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
         <Button x:Name="_9Button" Content="#9破" HorizontalAlignment="Left" Height="31" Margin="473,28,0,0" VerticalAlignment="Top" Width="71" FontSize="18" Foreground="White">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -43,17 +100,44 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="todayButton" Content="选择今天" HorizontalAlignment="Left" Height="31" Margin="323,63,0,0" VerticalAlignment="Top" Width="71" FontSize="16"/>
-        <Label x:Name="label1" Content="Time ruins everything. - Irreversible" HorizontalAlignment="Left" Height="34" Margin="279,166,0,0" VerticalAlignment="Top" Width="297" FontFamily="Tekton Pro" FontSize="22" FontStyle="Italic">
+        <Button x:Name="todayButton" Content="选择今天" HorizontalAlignment="Left" Height="31" Margin="323,63,0,0" VerticalAlignment="Top" Width="71" FontSize="16">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF7E7E7E" Offset="1"/>
+                    <GradientStop Color="White"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Label x:Name="IrreversibleQuoteLabel" Content="Time ruins everything. - Irreversible" HorizontalAlignment="Left" Height="34" Margin="279,166,0,0" VerticalAlignment="Top" Width="297" FontFamily="Tekton Pro" FontSize="22" FontStyle="Italic" FontWeight="Bold">
+            <Label.Effect>
+                <DropShadowEffect/>
+            </Label.Effect>
+            <Label.Foreground>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF59E1FF"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </RadialGradientBrush>
+            </Label.Foreground>
+        </Label>
+        <Button x:Name="todayButton_begin" Content="选择今天" HorizontalAlignment="Left" Height="31" Margin="323,27,0,0" VerticalAlignment="Top" Width="71" FontSize="16" Foreground="Black">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF7E7E7E" Offset="1"/>
+                    <GradientStop Color="White"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Label x:Name="label2_Copy" Content="相　　隔：" HorizontalAlignment="Left" Height="31" Margin="50,135,0,0" VerticalAlignment="Top" Width="106" FontSize="18" FontWeight="Bold">
+            <Label.Effect>
+                <DropShadowEffect/>
+            </Label.Effect>
             <Label.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF778026" Offset="0"/>
-                    <GradientStop Color="Red" Offset="1"/>
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="#FF00DCFF" Offset="1"/>
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-        <Button x:Name="todayButton_begin" Content="选择今天" HorizontalAlignment="Left" Height="31" Margin="323,27,0,0" VerticalAlignment="Top" Width="71" FontSize="16"/>
-        <Label x:Name="label2_Copy" Content="相　　隔：" HorizontalAlignment="Left" Height="31" Margin="50,135,0,0" VerticalAlignment="Top" Width="106" FontSize="18"/>
         <TextBox x:Name="dateSpanTextBox_2" HorizontalAlignment="Left" Height="31" Margin="161,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontSize="18" Background="White" TextAlignment="Center" IsReadOnly="True"/>
     </Grid>
 </Window>

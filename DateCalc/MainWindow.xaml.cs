@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+//自行添加
+using System.Windows.Media.Effects;
+using System.Windows.Media.Animation;
 
 namespace DateCalc
 {
@@ -36,6 +39,100 @@ namespace DateCalc
         {
             InitializeComponent();
 
+            #region UI逻辑事件
+            //
+            //  鼠标进入元素边界
+            //
+            startDatePick.MouseEnter += (sender, e) => BlurFadeIn();
+            endDatePick.MouseEnter += (sender, e) => BlurFadeIn();
+            dateSpanTextBox.MouseEnter += (sender, e) => BlurFadeIn();
+            GANSButton.MouseEnter += (sender, e) => BlurFadeIn();
+            _9Button.MouseEnter += (sender, e) => BlurFadeIn();
+            eqBirthButton.MouseEnter += (sender, e) => BlurFadeIn();
+            todayButton.MouseEnter += (sender, e) => BlurFadeIn();
+            todayButton_begin.MouseEnter += (sender, e) => BlurFadeIn();
+            dateSpanTextBox_2.MouseEnter += (sender, e) => BlurFadeIn();
+            //
+            //  鼠标离开元素边界
+            //
+            startDatePick.MouseLeave += (sender, e) => BlurFadeOut();
+            endDatePick.MouseLeave += (sender, e) => BlurFadeOut();
+            dateSpanTextBox.MouseLeave += (sender, e) => BlurFadeOut();
+            GANSButton.MouseLeave += (sender, e) => BlurFadeOut();
+            _9Button.MouseLeave += (sender, e) => BlurFadeOut();
+            eqBirthButton.MouseLeave += (sender, e) => BlurFadeOut();
+            todayButton.MouseLeave += (sender, e) => BlurFadeOut();
+            todayButton_begin.MouseLeave += (sender, e) => BlurFadeOut();
+            dateSpanTextBox_2.MouseLeave += (sender, e) => BlurFadeOut();
+            //
+            //  鼠标进入箴言label的边界
+            //
+            IrreversibleQuoteLabel.MouseEnter += (sender, e) =>
+            {
+                var AllFadeToTransparentAnimation = new DoubleAnimation
+                {
+                    To = 0,
+                    Duration = new TimeSpan(5000000),
+                    AutoReverse = false
+                };
+                var FadeFromTransparentAnimation = new DoubleAnimation
+                {
+                    To = 1,
+                    Duration = new TimeSpan(5000000),
+                    AutoReverse = false
+                };
+                startDatePick.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
+                endDatePick.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
+                dateSpanTextBox.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
+                GANSButton.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
+                _9Button.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
+                eqBirthButton.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
+                todayButton.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
+                todayButton_begin.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
+                dateSpanTextBox_2.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
+                label.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
+                label_Copy.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
+                label2.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
+                label2_Copy.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
+                GroupPolygon.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
+
+                AuthorsWords.BeginAnimation(UIElement.OpacityProperty, FadeFromTransparentAnimation);
+            };                                                  //这段写得好凶残，不知道能不能优化一下……
+
+            IrreversibleQuoteLabel.MouseLeave += (sender, e) =>
+            {
+                var AllFadeFromTransparentAnimation = new DoubleAnimation
+                {
+                    To = 1,
+                    Duration = new TimeSpan(5000000),
+                    AutoReverse = false
+                };
+                var FadeToTransparentAnimation = new DoubleAnimation
+                {
+                    To = 0,
+                    Duration = new TimeSpan(5000000),
+                    AutoReverse = false
+                };
+                startDatePick.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
+                endDatePick.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
+                dateSpanTextBox.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
+                GANSButton.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
+                _9Button.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
+                eqBirthButton.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
+                todayButton.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
+                todayButton_begin.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
+                dateSpanTextBox_2.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
+                label.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
+                label_Copy.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
+                label2.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
+                label2_Copy.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
+                GroupPolygon.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
+
+                AuthorsWords.BeginAnimation(UIElement.OpacityProperty, FadeToTransparentAnimation);
+            };
+            #endregion
+
+            #region 业务逻辑事件
             startDatePick.SelectedDate = DateTime.Today;
             startDatePick.SelectedDateChanged += (sender, e) => CalcByDate();
             endDatePick.SelectedDateChanged += (sender, e) => CalcByDate();
@@ -65,8 +162,36 @@ namespace DateCalc
                 startDatePick.SelectedDate = DateTime.Today;
                 CalcByDate();
             };
+            #endregion
         }
 
+        #region UI逻辑
+        private void BlurFadeIn()
+        {
+            var FadeToBlurAnimation = new DoubleAnimation
+            {
+                //From = 0,
+                To = 10,                            //Radius: -> 10
+                Duration = new TimeSpan(5000000),   //5 000 000 ticks = 0.5 sec
+                AutoReverse = false
+            };
+            BackgroundBlurEfffect.BeginAnimation(BlurEffect.RadiusProperty, FadeToBlurAnimation);
+        }
+
+        private void BlurFadeOut()
+        {
+            var FadeFromBlurAnimation = new DoubleAnimation
+            {
+                //From = 10,
+                To = 0,
+                Duration = new TimeSpan(5000000),
+                AutoReverse = false
+            };
+            BackgroundBlurEfffect.BeginAnimation(BlurEffect.RadiusProperty, FadeFromBlurAnimation);
+        }
+        #endregion
+
+        #region 业务逻辑
         private void CalcByDate()
         {
             if (!String.IsNullOrWhiteSpace(startDatePick.ToString()) && !String.IsNullOrWhiteSpace(endDatePick.ToString()))
@@ -160,9 +285,7 @@ namespace DateCalc
         //    DateTime EndDate = StartDate + TimeSpan.Parse(DateSpan.ToString());
         //    endDatePick.SelectedDate = EndDate;
         //}
+
+        #endregion
     }
 }
-
-/* Log
- * 
- */
