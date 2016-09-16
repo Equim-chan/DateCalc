@@ -18,9 +18,6 @@ using System.Windows.Media.Animation;
 
 namespace DateCalc
 {
-    /// <summary>
-    /// MainWindow.xaml 的交互逻辑
-    /// </summary>
     public class DateForCalc
     {
         public int Day;
@@ -33,6 +30,9 @@ namespace DateCalc
             Year = 0;
         }
     }
+    /// <summary>
+    /// MainWindow.xaml 的交互逻辑
+    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -41,29 +41,24 @@ namespace DateCalc
 
             #region UI逻辑事件
             //
-            //  鼠标进入元素边界
+            //  为方便统一UI动画的List<UIElement>声明
             //
-            startDatePick.MouseEnter += (sender, e) => BlurFadeIn();
-            endDatePick.MouseEnter += (sender, e) => BlurFadeIn();
-            dateSpanTextBox.MouseEnter += (sender, e) => BlurFadeIn();
-            GANSButton.MouseEnter += (sender, e) => BlurFadeIn();
-            _9Button.MouseEnter += (sender, e) => BlurFadeIn();
-            eqBirthButton.MouseEnter += (sender, e) => BlurFadeIn();
-            todayButton.MouseEnter += (sender, e) => BlurFadeIn();
-            todayButton_begin.MouseEnter += (sender, e) => BlurFadeIn();
-            dateSpanTextBox_2.MouseEnter += (sender, e) => BlurFadeIn();
-            //
-            //  鼠标离开元素边界
-            //
-            startDatePick.MouseLeave += (sender, e) => BlurFadeOut();
-            endDatePick.MouseLeave += (sender, e) => BlurFadeOut();
-            dateSpanTextBox.MouseLeave += (sender, e) => BlurFadeOut();
-            GANSButton.MouseLeave += (sender, e) => BlurFadeOut();
-            _9Button.MouseLeave += (sender, e) => BlurFadeOut();
-            eqBirthButton.MouseLeave += (sender, e) => BlurFadeOut();
-            todayButton.MouseLeave += (sender, e) => BlurFadeOut();
-            todayButton_begin.MouseLeave += (sender, e) => BlurFadeOut();
-            dateSpanTextBox_2.MouseLeave += (sender, e) => BlurFadeOut();
+            List<UIElement> BlurableUIElement = new List<UIElement>           //参考了Troogle的建议，将重复的操作改写了，简单了许多
+                {
+                startDatePick, endDatePick, dateSpanTextBox, dateSpanTextBox_2,               //DatePicker和TextBox
+                GANSButton, _9Button, eqBirthButton, todayButton, todayButton_begin,          //Button
+                };
+
+            List<UIElement> FadableUIElement = new List<UIElement>(BlurableUIElement);        //会渐变消失的UI元素包含会变模糊的UI元素
+            FadableUIElement.AddRange(new UIElement[]{label, label_Copy, label2, label2_Copy, GroupPolygon});   //Label
+
+            foreach (var item in BlurableUIElement)
+            {
+                //  鼠标进入元素边界
+                item.MouseEnter += (sender, e) => BlurFadeIn();
+                //  鼠标离开元素边界
+                item.MouseLeave += (sender, e) => BlurFadeOut();
+            }
             //
             //  鼠标进入箴言label的边界
             //
@@ -81,23 +76,12 @@ namespace DateCalc
                     Duration = new TimeSpan(5000000),
                     AutoReverse = false
                 };
-                startDatePick.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
-                endDatePick.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
-                dateSpanTextBox.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
-                GANSButton.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
-                _9Button.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
-                eqBirthButton.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
-                todayButton.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
-                todayButton_begin.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
-                dateSpanTextBox_2.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
-                label.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
-                label_Copy.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
-                label2.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
-                label2_Copy.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
-                GroupPolygon.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
-
+                foreach (var item in FadableUIElement)
+                {
+                    item.BeginAnimation(UIElement.OpacityProperty, AllFadeToTransparentAnimation);
+                }
                 AuthorsWords.BeginAnimation(UIElement.OpacityProperty, FadeFromTransparentAnimation);
-            };                                                  //这段写得好凶残，不知道能不能优化一下……
+            };
 
             IrreversibleQuoteLabel.MouseLeave += (sender, e) =>
             {
@@ -113,21 +97,10 @@ namespace DateCalc
                     Duration = new TimeSpan(5000000),
                     AutoReverse = false
                 };
-                startDatePick.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
-                endDatePick.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
-                dateSpanTextBox.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
-                GANSButton.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
-                _9Button.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
-                eqBirthButton.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
-                todayButton.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
-                todayButton_begin.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
-                dateSpanTextBox_2.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
-                label.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
-                label_Copy.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
-                label2.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
-                label2_Copy.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
-                GroupPolygon.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
-
+                foreach (var item in FadableUIElement)
+                {
+                    item.BeginAnimation(UIElement.OpacityProperty, AllFadeFromTransparentAnimation);
+                }
                 AuthorsWords.BeginAnimation(UIElement.OpacityProperty, FadeToTransparentAnimation);
             };
             #endregion
