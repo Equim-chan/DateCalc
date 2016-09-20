@@ -44,13 +44,13 @@ namespace DateCalc
             //  为方便统一UI动画的List<UIElement>声明
             //
             List<UIElement> BlurableUIElement = new List<UIElement>           //参考了Troogle的建议，将重复的操作改写了，简单了许多
-                {
+            {
                 startDatePick, endDatePick, dateSpanTextBox, dateSpanTextBox_2,               //DatePicker和TextBox
                 GANSButton, _9Button, eqBirthButton, todayButton, todayButton_begin,          //Button
-                };
+            };
 
             List<UIElement> FadableUIElement = new List<UIElement>(BlurableUIElement);        //会渐变消失的UI元素包含会变模糊的UI元素
-            FadableUIElement.AddRange(new UIElement[]{label, label_Copy, label2, label2_Copy, GroupPolygon});   //Label
+            FadableUIElement.AddRange(new UIElement[] { label, label_Copy, label2, label2_Copy, GroupPolygon });   //Label
 
             foreach (var item in BlurableUIElement)
             {
@@ -104,7 +104,7 @@ namespace DateCalc
                 AuthorsWords.BeginAnimation(UIElement.OpacityProperty, FadeToTransparentAnimation);
             };
             #endregion
-
+            
             #region 业务逻辑事件
             startDatePick.SelectedDate = DateTime.Today;
             startDatePick.SelectedDateChanged += (sender, e) => CalcByDate();
@@ -139,6 +139,11 @@ namespace DateCalc
         }
 
         #region UI逻辑
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
         private void BlurFadeIn()
         {
             var FadeToBlurAnimation = new DoubleAnimation
